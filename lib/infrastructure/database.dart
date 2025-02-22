@@ -18,6 +18,12 @@ class MyDatabase extends _$MyDatabase {
 
   @override
   int get schemaVersion => 1;
+
+  Stream<List<Todo>> watchEntries() {
+    return (select(todos)).watch();
+  }
+
+  Future<List<Todo>> get allTodoEntries => select(todos).get();
 }
 
 LazyDatabase _openConnection() {
