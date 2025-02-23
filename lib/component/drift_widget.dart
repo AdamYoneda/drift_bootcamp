@@ -43,7 +43,9 @@ class Drift extends StatelessWidget {
                     padding: const EdgeInsets.all(8),
                     child: ElevatedButton(
                       child: const Text('Add'),
-                      onPressed: () async {},
+                      onPressed: () async {
+                        database.insert('lolem ipsum');
+                      },
                     ),
                   ),
                 ),
