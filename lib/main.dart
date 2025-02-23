@@ -4,16 +4,20 @@ import 'package:flutter/material.dart';
 
 void main() {
   final database = MyDatabase();
-  runApp(const MyApp());
+  runApp(MyApp(database: database));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.database});
+
+  final MyDatabase database;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Drift(),
+      home: Drift(
+        database: database,
+      ),
     );
   }
 }

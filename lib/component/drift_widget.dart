@@ -1,9 +1,13 @@
+import 'package:drift_bootcamp/infrastructure/database.dart';
 import 'package:flutter/material.dart';
 
 class Drift extends StatelessWidget {
   const Drift({
     super.key,
+    required this.database,
   });
+
+  final MyDatabase database;
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +16,25 @@ class Drift extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(child: Container()),
+            Expanded(
+              child: StreamBuilder(
+                stream: database.watchEntries(),
+                builder:
+                    (BuildContext context, AsyncSnapshot<List<Todo>> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  return ListView.builder(
+                    //11
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) => TextButton(
+                      child: Text(snapshot.data![index].content),
+                      onPressed: () async {},
+                    ),
+                  );
+                },
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
